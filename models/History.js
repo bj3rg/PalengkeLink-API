@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
 
-const Messages = sequelizeConnect.define(
-  "messages",
+const History = sequelizeConnect.define(
+  "history", 
   {
     id: {
       type: Sequelize.UUID,
@@ -10,27 +10,23 @@ const Messages = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    sender_id: {
+    transaction_id: {
       type: Sequelize.UUID,
       allowNull: false,
     },
-    receiver_id: {
-      type: Sequelize.UUID,
-      allowNull: false,
-    },
-    msg_status: {
-      type: Sequelize.ENUM("Sent", "Delivered", "Seen"),
+    order_staus: {
+      type: Sequelize.ENUM('cancelled', 'completed'),
       allowNull: false,
     },
     status: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
-    tableName: "messages",
+    tableName: "history",
     timestamps: true,
   }
 );
 
-module.exports = Messages;
+module.exports = History;

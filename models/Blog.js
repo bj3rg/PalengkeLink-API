@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
+const User = require("../models/User");
 
-const Users = sequelizeConnect.define(
-  "users",
+const Blogs = sequelizeConnect.define(
+  "Blogs",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,36 +11,20 @@ const Users = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    fname: {
+    user_id: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
+    header: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    lname: {
+    description: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    mname: {
+    blog_image: {
       type: Sequelize.STRING,
-      allowNull: false,
-    },
-    address: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    phone_number: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    email_address: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    gender: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    birth_date: {
-      type: Sequelize.DATE,
       allowNull: false,
     },
     status: {
@@ -48,9 +33,15 @@ const Users = sequelizeConnect.define(
     },
   },
   {
-    tableName: "users",
+    tableName: "blogs",
     timestamps: true,
   }
 );
 
-module.exports = Users;
+Blogs.belongsTo(User, {
+  foreignKey: "user_id",
+  targetKey: "id",
+  as: "blog",
+});
+
+module.exports = Blogs;
