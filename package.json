@@ -1,0 +1,22 @@
+{
+  "name": "palengkelink-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bj3rg/PalengkeLink.git"
+  },
+  "keywords": [
+    "palengkelink"
+  ],
+  "author": "Angelo Burog",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bj3rg/PalengkeLink/issues"
+  },
+  "homepage": "https://github.com/bj3rg/PalengkeLink#readme"
+}
