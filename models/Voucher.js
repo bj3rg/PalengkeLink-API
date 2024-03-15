@@ -36,6 +36,10 @@ const Vouchers = sequelizeConnect.define(
       allowNull: false,
       defaultValue: true,
     },
+    status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     tableName: "vouchers",
