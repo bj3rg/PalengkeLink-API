@@ -42,6 +42,10 @@ const Users = sequelizeConnect.define(
       type: Sequelize.DATE,
       allowNull: false,
     },
+    status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     tableName: "users",

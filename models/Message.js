@@ -18,10 +18,14 @@ const Messages = sequelizeConnect.define(
       type: Sequelize.UUID,
       allowNull: false,
     },
-    status: {
+    msg_status: {
       type: Sequelize.ENUM("Sent", "Delivered", "Seen"),
       allowNull: false,
     },
+    status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
+    }
   },
   {
     tableName: "messages",
