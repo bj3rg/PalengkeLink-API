@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
-
-const Users = sequelizeConnect.define(
-  "users",
+const User = require("../models/User");
+const Product = require("../models/Product");
+const Ratings = sequelizeConnect.define(
+  "Ratings",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,36 +11,20 @@ const Users = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    fname: {
+    user_id: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
+    product_id: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
+    rating: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    lname: {
+    description: {
       type: Sequelize.STRING,
-      allowNull: false,
-    },
-    mname: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    address: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    phone_number: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    email_address: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    gender: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    birth_date: {
-      type: Sequelize.DATE,
       allowNull: false,
     },
     status: {
@@ -48,9 +33,21 @@ const Users = sequelizeConnect.define(
     },
   },
   {
-    tableName: "users",
+    tableName: "ratings",
     timestamps: true,
   }
 );
 
-module.exports = Users;
+Ratings.belongsTo(User, {
+  foreignKey: "user_id",
+  targetKey: "id",
+  as: "user",
+});
+
+Ratings.belongsTo(Product, {
+  foreignKey: "product_id",
+  targetKey: "id",
+  as: "product",
+});
+
+module.exports = Ratings;

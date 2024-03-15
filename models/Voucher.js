@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
 
-const Users = sequelizeConnect.define(
-  "users",
+const Vouchers = sequelizeConnect.define(
+  "Vouchers",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,37 +10,31 @@ const Users = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    fname: {
+    voucher_code: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    lname: {
+    title: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    mname: {
-      type: Sequelize.STRING,
+    validity_date: {
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
-    address: {
-      type: Sequelize.STRING,
+    percent_off: {
+      type: Sequelize.DECIMAL(10, 5),
       allowNull: false,
     },
-    phone_number: {
-      type: Sequelize.INTEGER,
+    is_available: {
+      type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
-    email_address: {
-      type: Sequelize.STRING,
+    is_single_use: {
+      type: Sequelize.BOOLEAN,
       allowNull: false,
-    },
-    gender: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    birth_date: {
-      type: Sequelize.DATE,
-      allowNull: false,
+      defaultValue: true,
     },
     status: {
       type: Sequelize.BOOLEAN,
@@ -48,9 +42,9 @@ const Users = sequelizeConnect.define(
     },
   },
   {
-    tableName: "users",
+    tableName: "vouchers",
     timestamps: true,
   }
 );
 
-module.exports = Users;
+module.exports = Vouchers;
