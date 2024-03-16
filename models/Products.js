@@ -42,14 +42,19 @@ const Products = sequelizeConnect.define(
 			type: Sequelize.INTEGER,
 			allowNull: false,
 		},
-		prurchase_counts: {
+		purchase_count: {
 			type: Sequelize.INTEGER,
 			allowNull: false,
+		},
+		status: {
+			type: Sequelize.BOOLEAN,
+			allowNull: false,
+			defaultValue: true
 		},
 	},
 	{
 		tableName: "products",
-    timestamps: true,
+    	timestamps: true,
 	}
 );
 

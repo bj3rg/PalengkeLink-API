@@ -21,6 +21,7 @@ const History = sequelizeConnect.define(
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: true
     },
   },
   {
