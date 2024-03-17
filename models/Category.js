@@ -26,4 +26,25 @@ const Category = sequelizeConnect.define(
   }
 );
 
-module.exports = Category;
+const Orders = sequelizeConnect.define("orders", {
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  },
+  product_id: {
+    type: Sequelize.UUID,
+    allowNull: false,
+  },
+  cart_id: {
+    type: Sequelize.UUID,
+    allowNull: false,
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+});
+
+module.exports = { Category, Orders };

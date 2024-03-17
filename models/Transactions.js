@@ -14,7 +14,7 @@ const Transactions = sequelizeConnect.define(
       type: Sequelize.UUID,
       allowNull: false,
     },
-    item_id: {
+    product_id: {
       type: Sequelize.UUID,
       allowNull: false,
     },

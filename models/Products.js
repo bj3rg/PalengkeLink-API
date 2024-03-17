@@ -42,7 +42,7 @@ const Products = sequelizeConnect.define(
 			type: Sequelize.INTEGER,
 			allowNull: false,
 		},
-		prurchase_counts: {
+		purchase_counts: {
 			type: Sequelize.INTEGER,
 			allowNull: false,
 		},
