@@ -27,6 +27,10 @@ const Blogs = sequelizeConnect.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    blog_image_url: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
