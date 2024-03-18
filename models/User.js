@@ -46,6 +46,10 @@ const Users = sequelizeConnect.define(
       type: Sequelize.STRING,
       allowNull: false
     },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
