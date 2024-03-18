@@ -2,7 +2,10 @@ const multer = require("multer");
 
 const uploadFolders = {
   // add folder names here
-  //format: profileImage: "public/assets/profile-upload",
+  dealsImages: "public/deals-upload",
+  merchantImage: "public/merchants-upload",
+  governmentId_image: "public/government_id-upload",
+  selfie_governmentId_image: "public/selfie_government_id-upload",
 };
 
 const fileStorage = multer.diskStorage({
@@ -46,9 +49,20 @@ const multerConfig = (req, res, next) => {
     },
   }).fields([
     {
-    //   sample format:
-    //   name: "profileImage",
-    //   maxCount: 1,
+      name: "dealsImages",
+      maxCount: 5,
+    },
+    {
+      name: "merchantImage",
+      maxCount: 1,
+    },
+    {
+      name: "governmentId_image",
+      maxCount: 1,
+    },
+    {
+      name: "selfie_governmentId_image",
+      maxCount: 1,
     },
   ])(req, res, next);
 };

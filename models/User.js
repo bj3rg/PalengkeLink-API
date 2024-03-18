@@ -10,15 +10,15 @@ const Users = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    fname: {
+    first_name: {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    lname: {
+    last_name: {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    mname: {
+    middle_name: {
       type: Sequelize.STRING,
       allowNull: true,
     },
@@ -45,6 +45,10 @@ const Users = sequelizeConnect.define(
     birth_date: {
       type: Sequelize.DATE,
       allowNull: false,
+    },
+    fcm_token: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
     status: {
       type: Sequelize.BOOLEAN,
