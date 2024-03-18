@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
 
-const Transactions = sequelizeConnect.define(
-  "transactions",
+const Orders = sequelizeConnect.define(
+  "Orders",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,15 +10,7 @@ const Transactions = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    user_id: {
-      type: Sequelize.UUID,
-      allowNull: false,
-    },
-    product_id: {
-      type: Sequelize.UUID,
-      allowNull: false,
-    },
-    voucher_id: {
+    item_id: {
       type: Sequelize.UUID,
       allowNull: false,
     },
@@ -26,19 +18,19 @@ const Transactions = sequelizeConnect.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    payment_method: {
-      type: Sequelize.ENUM("Gcash", "CashOnDelivery", "PalengkeCoins"),
+    cart_id: {
+      type: Sequelize.UUID,
       allowNull: false,
     },
-    status: {
-      type: Sequelize.BOOLEAN,
+    price: {
+      type: Sequelize.DOUBLE,
       allowNull: false,
     },
   },
   {
-    tableName: "transactions",
+    tableName: "orders",
     timestamps: true,
   }
 );
 
-module.exports = Transactions;
+module.exports = Orders;

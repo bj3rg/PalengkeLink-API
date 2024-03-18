@@ -10,27 +10,31 @@ const Users = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    fname: {
+    first_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    lname: {
+    last_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    mname: {
+    middle_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     address: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     phone_number: {
       type: Sequelize.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     email_address: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    password: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -41,6 +45,10 @@ const Users = sequelizeConnect.define(
     birth_date: {
       type: Sequelize.DATE,
       allowNull: false,
+    },
+    fcm_token: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
     status: {
       type: Sequelize.BOOLEAN,
