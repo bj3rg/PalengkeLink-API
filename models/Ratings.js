@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
 const User = require("../models/User");
-
-const Blogs = sequelizeConnect.define(
-  "Blogs",
+const Product = require("../models/Product");
+const Ratings = sequelizeConnect.define(
+  "Ratings",
   {
     id: {
       type: Sequelize.UUID,
@@ -15,15 +15,15 @@ const Blogs = sequelizeConnect.define(
       type: Sequelize.UUID,
       allowNull: false,
     },
-    header: {
+    product_id: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
+    rating: {
       type: Sequelize.STRING,
       allowNull: false,
     },
     description: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    blog_image: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -33,15 +33,21 @@ const Blogs = sequelizeConnect.define(
     },
   },
   {
-    tableName: "blogs",
+    tableName: "ratings",
     timestamps: true,
   }
 );
 
-Blogs.belongsTo(User, {
+Ratings.belongsTo(User, {
   foreignKey: "user_id",
   targetKey: "id",
-  as: "blog",
+  as: "user",
 });
 
-module.exports = Blogs;
+Ratings.belongsTo(Product, {
+  foreignKey: "product_id",
+  targetKey: "id",
+  as: "product",
+});
+
+module.exports = Ratings;
