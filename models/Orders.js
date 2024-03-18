@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
 
-const History = sequelizeConnect.define(
-  "history", 
+const Orders = sequelizeConnect.define(
+  "Orders",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,24 +10,27 @@ const History = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    transaction_id: {
+    item_id: {
       type: Sequelize.UUID,
       allowNull: false,
     },
-    order_staus: {
-      type: Sequelize.ENUM('cancelled', 'completed'),
+    quantity: {
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
-    status: {
-      type: Sequelize.BOOLEAN,
+    cart_id: {
+      type: Sequelize.UUID,
       allowNull: false,
-      defaultValue: true
+    },
+    price: {
+      type: Sequelize.DOUBLE,
+      allowNull: false,
     },
   },
   {
-    tableName: "history",
+    tableName: "orders",
     timestamps: true,
   }
 );
 
-module.exports = History;
+module.exports = Orders;
