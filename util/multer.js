@@ -2,6 +2,8 @@ const multer = require("multer");
 
 const uploadFolders = {
   // add folder names here
+  //format: profileImage: "public/assets/profile-upload",
+  productImage: "public/assets/product-image",
   dealsImages: "public/deals-upload",
   merchantImage: "public/merchants-upload",
   governmentId_image: "public/government_id-upload",
@@ -48,6 +50,13 @@ const multerConfig = (req, res, next) => {
       fileSize: 10 * 1024 * 1024, // 10MB
     },
   }).fields([
+    {
+    //   sample format:
+    //   name: "profileImage",
+    //   maxCount: 1,
+        name: "productImage",
+        maxCount: 4,
+    },
     {
       name: "dealsImages",
       maxCount: 5,
