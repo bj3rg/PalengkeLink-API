@@ -3,6 +3,7 @@ const multer = require("multer");
 const uploadFolders = {
   // add folder names here
   //format: profileImage: "public/assets/profile-upload",
+  productImage: "public/assets/product-image",
 };
 
 const fileStorage = multer.diskStorage({
@@ -49,6 +50,8 @@ const multerConfig = (req, res, next) => {
     //   sample format:
     //   name: "profileImage",
     //   maxCount: 1,
+        name: "productImage",
+        maxCount: 4,
     },
   ])(req, res, next);
 };

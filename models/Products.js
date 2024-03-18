@@ -14,12 +14,8 @@ const Products = sequelizeConnect.define(
 			type: Sequelize.UUID,
 			allowNull: false,
 		},
-		item_name: {
+		product_name: {
 			type: Sequelize.STRING,
-			allowNull: false,
-		},
-		kilogram: {
-			type: Sequelize.DOUBLE,
 			allowNull: false,
 		},
 		price: {
