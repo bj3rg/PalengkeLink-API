@@ -12,25 +12,29 @@ const Users = sequelizeConnect.define(
     },
     fname: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     lname: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     mname: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     address: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     phone_number: {
       type: Sequelize.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     email_address: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    password: {
       type: Sequelize.STRING,
       allowNull: false,
     },
