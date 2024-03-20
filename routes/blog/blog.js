@@ -7,6 +7,9 @@ const {
   createBlog,
   updateBlog,
   deleteBlog,
+  findAllBlog,
+  findBlogbyID,
+  findAllBlogbyUserID,
 } = require("../../controllers/blog");
 
 router.post(
@@ -17,7 +20,7 @@ router.post(
 );
 
 router.put(
-  "/create-blog",
+  "/update-blog/:blogID",
   [
     param("blogID").isUUID(),
     body("header").notEmpty(),
@@ -28,10 +31,26 @@ router.put(
 );
 
 router.delete(
-  "/create-blog",
+  "/delete-blog/:blogID",
   [param("blogID").isUUID()],
   validation,
   deleteBlog
 );
+
+router.get(
+  "/search-all-blog/:userID",
+  [param("userID").isUUID()],
+  validation,
+  findAllBlogbyUserID
+);
+
+router.get(
+  "/search-blog/:blogID",
+  [param("blogID").isUUID()],
+  validation,
+  findBlogbyID
+);
+
+router.get("/search-all-blog", validation, findAllBlog);
 
 module.exports = router;
