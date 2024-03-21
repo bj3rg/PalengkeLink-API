@@ -174,7 +174,7 @@ exports.findVoucherbyID = (req, res, next) => {
 //Find all valid voucher
 exports.findAllValidVoucher = (req, res, next) => {
   const dateToday = new Date();
-  Vouchers.findAll({
+  Voucher.findAll({
     where: {
       is_available: true,
       validity_date: {
