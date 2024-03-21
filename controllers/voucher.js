@@ -171,6 +171,40 @@ exports.findVoucherbyID = (req, res, next) => {
     });
 };
 
+// Find voucher by voucher code
+exports.findVoucherbyVoucher = (req, res, next) => {
+  const { voucherCode } = req.params;
+  Voucher.findOne({
+    where: {
+      voucher_code: voucherCode,
+    },
+  })
+    .then((data) => {
+      if (!data) {
+        return res.status(400).json({
+          success: false,
+          message: "Voucher does not exist",
+        });
+      }
+      const voucherDetails = data.map((voucher) => ({
+        id: voucher.id,
+        title: voucher.title,
+        voucher_code: voucherCode,
+        validity_date: voucher.validity_date,
+        percent_off: voucher.percent_off,
+        is_available: voucher.is_available,
+        is_single_use: voucher.is_single_use,
+      }));
+      return res.status(200).json({
+        success: true,
+        voucherDetails,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
 //Find all valid voucher
 exports.findAllValidVoucher = (req, res, next) => {
   const dateToday = new Date();
