@@ -117,3 +117,21 @@ exports.verifyEmail = (req, res, next) => {
       next(saveError);
     });
 };
+
+exports.logIn = (req, res, next) => {
+  const { email_address, password } = req.body;
+  let userInfo;
+
+  Users.findOne({
+    where: {
+      email_address: email_address,
+    },
+  }).then((user) => {
+    if (!user) {
+      errorHandler("User not found", 404);
+    }
+    userInfo = user;
+
+    return bcrypt.compare(password, client.password);
+  });
+};
