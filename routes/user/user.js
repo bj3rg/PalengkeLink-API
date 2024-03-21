@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { body, param } = require("express-validator");
 const validation = require("../../middlewares/routeValidation");
-const { createUser, updateUser, updateStatus, deleteUser } = require("../../controllers/User");
+const { createUser, updateUser, updateStatus, deleteUser, findUserById, findAllActiveUsers } = require("../../controllers/User");
 
 router.post(
   "/create",
@@ -35,5 +35,7 @@ router.put("/:userId/update", [
 
 router.put("/:userId/:stat/update-status", [], updateStatus);
 router.delete("/:userId/hard-delete", [], deleteUser);
+router.get("/:userId/search", [], findUserById);
+router.get("/users", findAllActiveUsers);
 
 module.exports = router;

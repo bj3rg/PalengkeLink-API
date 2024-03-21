@@ -121,7 +121,7 @@ exports.updateStatus = (req, res, next) => {
 };
 
 exports.deleteUser = (req, res, next) => {
-  const {userId} = req.params;
+  const { userId } = req.params;
   Users.findOne({
     where: {
       id: userId,
@@ -143,8 +143,41 @@ exports.deleteUser = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-}
+};
 
 //get user by id
+exports.findUserById = (req, res, next) => {
+  const { userId } = req.params;
+  Users.findOne({
+    where: {
+      id: userId,
+    },
+  })
+    .then((data) => {
+      if (!data) {
+        return res
+          .status(400)
+          .json({ success: false, message: "User id does not exist" });
+      } else {
+        return res.status(200).json({ success: true, data });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
 //get all users status true
-//get
+exports.findAllActiveUsers = (req, res, next) => {
+  Users.findAll({
+    where: {
+      status: true,
+    },
+  })
+    .then((data) => {
+      return res.status(200).json({ success: true, data });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
