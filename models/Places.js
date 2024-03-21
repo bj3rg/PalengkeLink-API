@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
+const Users = require("./User");
 
-const Users = sequelizeConnect.define(
-  "users",
+const Places = sequelizeConnect.define(
+  "places",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,17 +11,21 @@ const Users = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
+    user_id: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
     first_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     last_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     middle_name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     address: {
       type: Sequelize.STRING,
@@ -30,27 +35,7 @@ const Users = sequelizeConnect.define(
       type: Sequelize.INTEGER,
       allowNull: true,
     },
-    email_address: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    gender: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    birth_date: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-    fcm_token: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    password: {
+    details: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -61,9 +46,15 @@ const Users = sequelizeConnect.define(
     },
   },
   {
-    tableName: "users",
+    tableName: "places",
     timestamps: true,
   }
 );
 
-module.exports = Users;
+Places.belongsTo(Users, {
+  foreignKey: "user_id",
+  targetKey: "id",
+  as: "user",
+});
+
+module.exports = Places;

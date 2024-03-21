@@ -175,7 +175,7 @@ exports.findAllActiveUsers = (req, res, next) => {
     },
   })
     .then((data) => {
-      return res.status(200).json({ success: true, data });
+      return res.status(200).json({ success: true, users: data });
     })
     .catch((err) => {
       next(err);
