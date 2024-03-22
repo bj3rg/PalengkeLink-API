@@ -12,7 +12,7 @@ const app = express();
 // require("./middlewares/services");
 app.use(multerConfig);
 app.use(bodyParser.json());
-app.use("/public", express.static("public"));
+app.use("/asset", express.static("public"));
 app.use("/api/v1", cors, rateLimiter, routes);
 app.use(serverError);
 app.use("*", (req, res, next) => {
