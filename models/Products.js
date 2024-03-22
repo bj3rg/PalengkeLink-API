@@ -28,9 +28,9 @@ const Products = sequelizeConnect.define(
 		},
 		ratings_id: {
 			type: Sequelize.UUID,
-			allowNull: false,
+			allowNull: true,
 		},
-		image: {
+		product_image: {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
