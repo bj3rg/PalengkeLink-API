@@ -12,18 +12,11 @@ const Users = sequelizeConnect.define(
     },
     first_name: {
       type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: "",
+      allowNull: false,
     },
     last_name: {
       type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: "",
-    },
-    middle_name: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: "",
+      allowNull: false,
     },
     address: {
       type: Sequelize.STRING,
@@ -32,8 +25,7 @@ const Users = sequelizeConnect.define(
     },
     phone_number: {
       type: Sequelize.INTEGER,
-      allowNull: true,
-      defaultValue: 0,
+      allowNull: false,
     },
     email_address: {
       type: Sequelize.STRING,
@@ -48,11 +40,10 @@ const Users = sequelizeConnect.define(
       allowNull: true,
       defaultValue: "",
     },
-    // birth_date: {
-    //   type: Sequelize.DATE,
-    //   allowNull: true,
-    //   defaultValue: 0,
-    // },
+    birth_date: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
     fcm_token: {
       type: Sequelize.STRING,
       allowNull: true,
@@ -60,7 +51,7 @@ const Users = sequelizeConnect.define(
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     status: {
       type: Sequelize.BOOLEAN,

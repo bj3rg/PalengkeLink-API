@@ -12,7 +12,14 @@ const {
 } = require("../helpers/emailHelper");
 
 exports.signUp = (req, res, next) => {
-  const { email_address, password } = req.body;
+  const {
+    first_name,
+    last_name,
+    email_address,
+    birth_date,
+    password,
+    phone_number,
+  } = req.body;
 
   Users.findOne({ where: { email_address: email_address } })
     .then((data) => {
@@ -37,8 +44,12 @@ exports.signUp = (req, res, next) => {
           }
 
           Users.create({
+            first_name,
+            last_name,
             email_address,
+            birth_date,
             password: hashedPassword,
+            phone_number,
           });
         });
       });
@@ -119,12 +130,12 @@ exports.verifyEmail = (req, res, next) => {
 };
 
 exports.logIn = (req, res, next) => {
-  const { email_address, password } = req.body;
+  const { phoneNum, password } = req.body;
   let userInfo;
 
   Users.findOne({
     where: {
-      email_address: email_address,
+      phone_number: email_address,
     },
   }).then((user) => {
     if (!user) {
