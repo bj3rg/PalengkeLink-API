@@ -14,6 +14,10 @@ const Category = sequelizeConnect.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    description: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
