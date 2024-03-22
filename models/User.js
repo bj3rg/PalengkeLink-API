@@ -13,17 +13,24 @@ const Users = sequelizeConnect.define(
     first_name: {
       type: Sequelize.STRING,
       allowNull: false,
+      allowNull: false,
     },
     last_name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    middle_name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      allowNull: false,
+    },
     address: {
       type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: "",
+      allowNull: false,
     },
     phone_number: {
+      type: Sequelize.STRING,
+      allowNull: true,
       type: Sequelize.INTEGER,
       allowNull: false,
     },
@@ -31,14 +38,17 @@ const Users = sequelizeConnect.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    photo: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     password: {
       type: Sequelize.STRING,
       allowNull: false,
     },
     gender: {
       type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: "",
+      allowNull: false,
     },
     birth_date: {
       type: Sequelize.DATE,
@@ -47,10 +57,10 @@ const Users = sequelizeConnect.define(
     fcm_token: {
       type: Sequelize.STRING,
       allowNull: true,
-      defaultValue: 0,
     },
     password: {
       type: Sequelize.STRING,
+      allowNull: false,
       allowNull: false,
     },
     status: {

@@ -27,6 +27,11 @@ const Orders = sequelizeConnect.define(
       type: Sequelize.DOUBLE,
       allowNull: false,
     },
+    status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: true,
+    },
   },
   {
     tableName: "orders",

@@ -1,6 +1,14 @@
 const Users = require("../models/User");
+const deleteFile = require("../helpers/deleteFile");
 
 exports.createUser = (req, res, next) => {
+  if (!req.files.userImg) {
+    return res
+      .status(400)
+      .json({ success: false, message: "No user profile image selected" });
+  }
+  const userImg = req.files.userImg[0];
+  console.log(req.body.data);
   const {
     first_name,
     last_name,
@@ -10,10 +18,9 @@ exports.createUser = (req, res, next) => {
     email_address,
     gender,
     birth_date,
-    fcm_token,
+    //fcm_token,
     password,
-    status,
-  } = req.body;
+  } = req.body.data;
   Users.findOne({
     where: {
       email_address: email_address,
@@ -21,6 +28,7 @@ exports.createUser = (req, res, next) => {
   })
     .then((data) => {
       if (data) {
+        deleteFile(userImg.filename, "user-upload");
         return res
           .status(400)
           .json({ success: false, message: "Email Address Already Taken" });
@@ -32,11 +40,10 @@ exports.createUser = (req, res, next) => {
           address,
           phone_number,
           email_address,
+          photo: userImg.filename,
           gender,
           birth_date,
-          fcm_token,
           password,
-          status,
         }).then(() => {
           return res
             .status(200)
@@ -45,6 +52,7 @@ exports.createUser = (req, res, next) => {
       }
     })
     .catch((err) => {
+      console.log(err);
       next(err);
     });
 };
@@ -175,7 +183,7 @@ exports.findAllActiveUsers = (req, res, next) => {
     },
   })
     .then((data) => {
-      return res.status(200).json({ success: true, data });
+      return res.status(200).json({ success: true, users: data });
     })
     .catch((err) => {
       next(err);

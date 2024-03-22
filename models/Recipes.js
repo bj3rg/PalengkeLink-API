@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
+const Products = require("./Products");
 
-const Category = sequelizeConnect.define(
-  "category",
+const Recipes = sequelizeConnect.define(
+  "recipes",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,24 +11,30 @@ const Category = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    category_name: {
+    dish_name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
     description: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: false,
+    },
+    photo: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     status: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: true,
     },
   },
   {
-    tableName: "category",
-    timestamps: true,
+    tableName: "recipes",
+    timestamps: false,
   }
 );
 
-module.exports = Category;
+Recipes.hasMany(Products, { as: "products" });
+
+module.exports = Recipes;
