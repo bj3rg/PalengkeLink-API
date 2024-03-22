@@ -27,12 +27,16 @@ const Users = sequelizeConnect.define(
       allowNull: false,
     },
     phone_number: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: true,
     },
     email_address: {
       type: Sequelize.STRING,
       allowNull: false,
+    },
+    photo: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
     password: {
       type: Sequelize.STRING,
@@ -43,12 +47,12 @@ const Users = sequelizeConnect.define(
       allowNull: false,
     },
     birth_date: {
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     fcm_token: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     password: {
       type: Sequelize.STRING,
