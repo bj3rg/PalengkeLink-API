@@ -1,26 +1,48 @@
 const express = require("express");
 const router = express.Router();
 const validation = require("../../middlewares/routeValidation");
-const { body, param } = require("express-validator")
+const { body } = require("express-validator");
+const jsonParser = require("../../helpers/jsonParser");
+const Category = require("../../models/Category");
+const Products = require("../../models/Products");
 
-const {createProduct} = require("../../controllers/products");
+const {
+  createProduct,
+  updateProduct,
+} = require("../../controllers/products");
 
 router.post(
-    "/create",
-    [
-      body("data.categoryId").notEmpty().isUUID(),
-      body("data.productName").notEmpty(),
-      body("data.price").notEmpty(),
-      body("data.description").notEmpty(),
-      body("data.ratingsId").notEmpty(),
-      body("data.image").notEmpty(),
-      body("data.stocks").notEmpty(),
-      body("data.purchaseCount").notEmpty(),
-      body("data.status").optional(),
+  "/create",
+  jsonParser,
+  [
+    body("data.categoryId").notEmpty().isUUID(),
+    body("data.productName").notEmpty(),
+    body("data.price").notEmpty(),
+    body("data.description").notEmpty(),
+    body("data.ratingsId").optional(),
+    body("data.stocks").notEmpty(),
+    body("data.purchaseCount").notEmpty(),
+    body("data.status").optional(),
+  ],
+  validation,
+  createProduct
+);
 
+
+  router.post(
+    "/:productId/update",
+    jsonParser,
+    [
+      body("data.categoryId").optional().isUUID(),
+      body("data.productName").optional(),
+      body("data.price").optional(),
+      body("data.description").optional(),
+      body("data.ratingsId").optional(),
+      body("data.stocks").optional(),
+      body("data.purchaseCount").optional(),
     ],
     validation,
-    createProduct
+    updateProduct
   );
 
   module.exports = router;

@@ -3,7 +3,7 @@ const multer = require("multer");
 const uploadFolders = {
   // add folder names here
   //format: profileImage: "public/assets/profile-upload",
-  productImage: "public/assets/product-image",
+  productImage: "public/assets/product-upload",
   dealsImages: "public/deals-upload",
   merchantImage: "public/merchants-upload",
   governmentId_image: "public/government_id-upload",

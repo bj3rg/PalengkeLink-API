@@ -27,7 +27,7 @@ exports.createCategory = (req, res, next) => {
         message: "Category created",
       });
     })
-    .catch(() => {
+    .catch((err) => {
       next(err);
     });
 };
