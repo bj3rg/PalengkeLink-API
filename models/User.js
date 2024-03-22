@@ -12,19 +12,19 @@ const Users = sequelizeConnect.define(
     },
     first_name: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     last_name: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     middle_name: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     address: {
       type: Sequelize.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     phone_number: {
       type: Sequelize.INTEGER,
@@ -48,11 +48,16 @@ const Users = sequelizeConnect.define(
     },
     fcm_token: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     status: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: true,
     },
   },
   {

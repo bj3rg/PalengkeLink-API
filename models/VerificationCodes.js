@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
-const User = require("../models/User");
+const Users = require("../models/User");
 
-const Blogs = sequelizeConnect.define(
-  "Blogs",
+const VerificationCodes = sequelizeConnect.define(
+  "VerificationCodes",
   {
     id: {
       type: Sequelize.UUID,
@@ -11,41 +11,32 @@ const Blogs = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    user_id: {
-      type: Sequelize.UUID,
-      allowNull: false,
+    // user_id: {
+    //   type: Sequelize.UUID,
+    //   allowNull: true,
+    //   defaultValue: 0,
+    // },
+    email_address: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
-    header: {
+    verification_code: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    description: {
+    ip_address: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    blog_image: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    blog_image_url: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    status: {
+    is_available: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
     },
   },
   {
-    tableName: "blogs",
     timestamps: true,
   }
 );
 
-Blogs.belongsTo(User, {
-  foreignKey: "user_id",
-  targetKey: "id",
-  as: "blog",
-});
-
-module.exports = Blogs;
+module.exports = VerificationCodes;
