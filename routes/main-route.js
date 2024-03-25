@@ -6,13 +6,13 @@ const userRoute = require("./user/user");
 const categoryRoute = require("./category/category");
 const accountRoute = require("./account/account");
 const orderRoute = require("./order/order");
-const cartRoute = require("./cart/cart");
+const voucherRoute = require("./voucher/voucher");
 
 router.use("/products", productsRoute);
 router.use("/user", userRoute);
 router.use("/order", orderRoute);
 router.use("/category", categoryRoute);
 router.use("/account", accountRoute);
-router.use("/cart", cartRoute);
+router.use("/voucher", voucherRoute);
 
 module.exports = router;

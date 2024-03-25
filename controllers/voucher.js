@@ -1,5 +1,5 @@
 const Voucher = require("../models/Voucher");
-
+const { Op } = require("sequelize");
 // Create voucher
 exports.createVoucher = (req, res, next) => {
   const { voucher_code, title, validity_date, percent_off } = req.body;

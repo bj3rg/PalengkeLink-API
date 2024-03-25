@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { body, params } = require("express-validator");
+const { body, param } = require("express-validator");
 const validation = require("../../middlewares/routeValidation");
 const {
   createVoucher,
@@ -26,7 +26,7 @@ router.post(
 
 router.delete(
   "/:voucherID/voucher-delete",
-  [params("voucherID").isUUID()],
+  [param("voucherID").isUUID()],
   validation,
   deleteVoucher
 );
@@ -51,14 +51,14 @@ router.get("/all-valid-voucher", validation, findAllValidVoucher);
 
 router.get(
   "/:voucherCode/voucher-code",
-  [params("voucherCode").notEmpty()],
+  [param("voucherCode").notEmpty()],
   validation,
   findVoucherbyVoucher
 );
 
 router.get(
   "/:voucherID/voucher-id",
-  [params("voucherID").isUUID().notEmpty()],
+  [param("voucherID").isUUID().notEmpty()],
   validation,
   findVoucherbyID
 );
