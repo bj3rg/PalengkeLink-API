@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const errorHandler = require("../util/errorHandler");
 const VerificationCodes = require("../models/VerificationCodes");
 const generateRandomCode = require("../helpers/randomCodeGenerator");
+const { updateOrCreateToken } = require("../helpers/tokenHelper");
 
 const Users = require("../models/User");
 
@@ -18,8 +19,16 @@ exports.signUp = (req, res, next) => {
     email_address,
     birth_date,
     password,
+    confirm_password,
     phone_number,
   } = req.body;
+
+  if (password !== confirm_password) {
+    return res.status(400).json({
+      success: false,
+      message: "Password and confirm password do not match",
+    });
+  }
 
   Users.findOne({ where: { email_address: email_address } })
     .then((data) => {
@@ -135,14 +144,40 @@ exports.logIn = (req, res, next) => {
 
   Users.findOne({
     where: {
-      phone_number: email_address,
+      phone_number: phoneNum,
     },
-  }).then((user) => {
-    if (!user) {
-      errorHandler("User not found", 404);
-    }
-    userInfo = user;
+  })
+    .then((user) => {
+      if (!user) {
+        errorHandler("User not found", 404);
+      }
+      userInfo = user;
 
-    return bcrypt.compare(password, client.password);
-  });
+      return bcrypt.compare(password, user.password);
+    })
+    .then((isEqual) => {
+      if (!isEqual) {
+        errorHandler("Wrong password", 401);
+      }
+
+      return updateOrCreateClientToken(userInfo.id);
+    })
+    .then((token) => {
+      console.log("token: ", token);
+      res.status(200).json({
+        token: token,
+        userId: userInfo.id,
+        firstName: userInfo.first_name,
+        lastName: userInfo.last_name,
+        emailAddress: userInfo.email_address,
+        mobileNumber: userInfo.phone_number,
+        success: true,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };

@@ -5,6 +5,7 @@ const uploadFolders = {
   //format: profileImage: "public/assets/profile-upload",
   userImg: "public/user-upload",
   productImage: "public/product-upload",
+  recipeImage: "public/recipe-upload",
 };
 
 const fileStorage = multer.diskStorage({
@@ -57,7 +58,11 @@ const multerConfig = (req, res, next) => {
     {
       name: "productImage",
       maxCount: 1,
-    }
+    },
+    {
+      name: "recipeImage",
+      maxCount: 1,
+    },
   ])(req, res, next);
 };
 

@@ -6,6 +6,7 @@ const {
   signUp,
   sendEmailOTP,
   verifyEmail,
+  logIn,
 } = require("../../controllers/account");
 const Users = require("../../models/User");
 
@@ -25,10 +26,13 @@ router.post(
       .withMessage("Password must be at least 6 characters")
       .not()
       .isEmpty(),
-    body("phone_number")
+    body("confirm_password")
       .trim()
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters")
       .not()
       .isEmpty(),
+    body("phone_number").trim().isLength({ max: 10 }).not().isEmpty(),
   ],
   validation,
   signUp
@@ -49,6 +53,24 @@ router.post(
   ],
   validation,
   verifyEmail
+);
+
+router.post(
+  "/log-in",
+  [
+    body("phoneNum")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("Username cannot be blank!"),
+    body("password")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("Password cannot be blank!"),
+  ],
+  validation,
+  logIn
 );
 
 module.exports = router;

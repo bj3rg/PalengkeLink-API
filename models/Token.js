@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
-const User = require("../models/User");
 
-const Points = sequelizeConnect.define(
-  "points",
+
+const Token = sequelizeConnect.define(
+  "token",
   {
     id: {
       type: Sequelize.UUID,
@@ -11,25 +11,24 @@ const Points = sequelizeConnect.define(
       allowNull: false,
       primaryKey: true,
     },
-    user_id: {
-      type: Sequelize.UUID,
+    token: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    expirationDate: {
+      type: Sequelize.DATE,
       allowNull: false,
     },
-    points: {
-      type: Sequelize.DOUBLE,
-      allowNull: false,
+    user_id: {
+      type: Sequelize.UUID,
+      allowNull: true,
     },
   },
   {
-    tableName: "points",
+    tableName: "token",
     timestamps: true,
   }
 );
 
-Points.belongsTo(User, {
-  foreignKey: "user_id",
-  targetKey: "id",
-  as: "user",
-});
-
-module.exports = Points;
+module.exports = Token;

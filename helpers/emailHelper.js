@@ -2,8 +2,7 @@ const transporter = require("../helpers/transporter");
 const emailTemplates = require("../helpers/emailTemplate");
 const generateRandomCode = require("../helpers/randomCodeGenerator");
 
-const createVerificationEmail = (clientEmail) => {
-  const verificationCode = generateRandomCode();
+const createVerificationEmail = (clientEmail, verificationCode) => {
   const htmlMessage =
     emailTemplates.createVerificationEmailTemplate(verificationCode);
 
