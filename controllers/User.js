@@ -3,12 +3,13 @@ const deleteFile = require("../helpers/deleteFile");
 
 exports.createUser = (req, res, next) => {
   if (!req.files.userImg) {
-    return res
-      .status(400)
-      .json({ success: false, message: "No user profile image selected" });
+    return res.json({
+      success: false,
+      message: "No user profile image selected",
+    });
   }
   const userImg = req.files.userImg[0];
-  console.log(req.body.data);
+  // console.log(req.body.data);
   const {
     first_name,
     last_name,
@@ -21,6 +22,7 @@ exports.createUser = (req, res, next) => {
     //fcm_token,
     password,
   } = req.body.data;
+
   Users.findOne({
     where: {
       email_address: email_address,
@@ -29,9 +31,10 @@ exports.createUser = (req, res, next) => {
     .then((data) => {
       if (data) {
         deleteFile(userImg.filename, "user-upload");
-        return res
-          .status(400)
-          .json({ success: false, message: "Email Address Already Taken" });
+        return res.status(401).json({
+          success: false,
+          message: "Email Address Already Taken",
+        });
       } else {
         return Users.create({
           first_name,
@@ -40,14 +43,15 @@ exports.createUser = (req, res, next) => {
           address,
           phone_number,
           email_address,
-          photo: userImg.filename,
+          photo: userImg.filename || null,
           gender,
           birth_date,
           password,
         }).then(() => {
-          return res
-            .status(200)
-            .json({ success: true, message: "User Created SUccessfully" });
+          return res.json({
+            success: true,
+            message: "User Created Successfully",
+          });
         });
       }
     })
