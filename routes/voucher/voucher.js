@@ -13,12 +13,13 @@ const {
 } = require("../../controllers/voucher");
 
 router.post(
-  "/voucher-create",
+  "/:voucherCode/voucher-create",
   [
     body("voucher_code").notEmpty(),
     body("title").notEmpty(),
     body("validity_date").notEmpty().isDate(),
     body("percent_off").notEmpty().isDecimal(),
+    param("voucherCode").notEmpty(),
   ],
   validation,
   createVoucher
