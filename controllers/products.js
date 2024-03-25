@@ -258,3 +258,23 @@ exports.updateProductStatus = (req, res, next) => {
       next(err);
     });
 };
+
+exports.searchProductById = (req, res, next) => {
+  const { productId } = req.params;
+
+  Products.findByPk(productId)
+    .then((product) => {
+      console.log(product);
+
+      if (!product) {
+        return errorHandler("Product not found", 400);
+      }
+      return res.status(200).json({
+        success: true,
+        product,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};

@@ -7,7 +7,7 @@ const { createCart } = require("../../controllers/cart");
 
 router.post(
   "/create",
-  [body("user_id").notEmpty().isUUID(), body("total_price").notEmpty()],
+  [body("user_id").notEmpty().isUUID(), body("total_price").optional()],
   validation,
   createCart
 );

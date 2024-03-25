@@ -16,7 +16,8 @@ const Cart = sequelizeConnect.define(
     },
     total_price: {
       type: Sequelize.DOUBLE,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: 0,
     },
     status: {
       type: Sequelize.BOOLEAN,

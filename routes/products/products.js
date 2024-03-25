@@ -14,7 +14,8 @@ const {
   findActiveProductsByCategory,
   deleteProduct,
   forceDeleteProduct,
-  updateProductStatus
+  updateProductStatus,
+  searchProductById
 } = require("../../controllers/products");
 const errorHandler = require("../../util/errorHandler");
 const { updateCategory } = require("../../controllers/category");
@@ -167,6 +168,26 @@ router.put(
   ],
   validation,
   updateProductStatus
+);
+
+router.get(
+  "/:productId/search-product",
+  [
+    param("productId")
+    .custom((value, { req }) => {
+      return Products.findOne({
+        where: {
+          id: value,
+        },
+      }).then((product) => {
+        if (!product) {
+          return Promise.reject("Product ID does not exists!");
+        }
+      });
+    }),
+  ],
+  validation,
+  searchProductById
 );
 
 module.exports = router;
