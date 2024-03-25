@@ -12,6 +12,7 @@ const {
   createVerificationEmail,
 } = require("../helpers/emailHelper");
 
+//sign up
 exports.signUp = (req, res, next) => {
   const {
     first_name,
@@ -74,6 +75,7 @@ exports.signUp = (req, res, next) => {
     });
 };
 
+//send otp
 exports.sendEmailOTP = (req, res, next) => {
   const { email_address } = req.body;
 
@@ -103,6 +105,7 @@ exports.sendEmailOTP = (req, res, next) => {
     });
 };
 
+//verify email
 exports.verifyEmail = (req, res, next) => {
   const { email_address, verification_code } = req.body;
 
@@ -127,9 +130,12 @@ exports.verifyEmail = (req, res, next) => {
         });
       }
 
-      return res.status(200).json({
-        success: true,
-        message: "Correct Verification Code.",
+      data.is_available = false;
+      return data.save().then(() => {
+        return res.status(200).json({
+          success: true,
+          message: "Correct Verification Code.",
+        });
       });
     })
     .catch((saveError) => {
@@ -138,6 +144,7 @@ exports.verifyEmail = (req, res, next) => {
     });
 };
 
+//log in
 exports.logIn = (req, res, next) => {
   const { phoneNum, password } = req.body;
   let userInfo;
@@ -160,7 +167,7 @@ exports.logIn = (req, res, next) => {
         errorHandler("Wrong password", 401);
       }
 
-      return updateOrCreateClientToken(userInfo.id);
+      return updateOrCreateToken(userInfo.id);
     })
     .then((token) => {
       console.log("token: ", token);
@@ -171,6 +178,45 @@ exports.logIn = (req, res, next) => {
         lastName: userInfo.last_name,
         emailAddress: userInfo.email_address,
         mobileNumber: userInfo.phone_number,
+        success: true,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+//forgot password
+exports.forgotPassword = (req, res, next) => {
+  const { email_address, new_password, confirm_password } = req.body;
+
+  if (new_password !== confirm_password) {
+    return res.status(400).json({
+      success: false,
+      message: "Password and confirm password do not match",
+    });
+  }
+
+  Users.findOne({
+    where: {
+      email_address: email_address,
+    },
+  })
+    .then((userData) => {
+      if (!userData) {
+        errorHandler("User not found", 404);
+      }
+
+      bcrypt.hash(new_password, 10).then((hashedPassword) => {
+        return userData.update({ password: hashedPassword });
+      });
+    })
+    .then(() => {
+      res.status(200).json({
+        message: "User password changed successfully.",
         success: true,
       });
     })

@@ -7,6 +7,7 @@ const {
   sendEmailOTP,
   verifyEmail,
   logIn,
+  forgotPassword,
 } = require("../../controllers/account");
 const Users = require("../../models/User");
 
@@ -62,7 +63,7 @@ router.post(
       .trim()
       .not()
       .isEmpty()
-      .withMessage("Username cannot be blank!"),
+      .withMessage("Phone number cannot be blank!"),
     body("password")
       .trim()
       .not()
@@ -71,6 +72,17 @@ router.post(
   ],
   validation,
   logIn
+);
+
+router.post(
+  "/forgot-password",
+  [
+    body("email_address").notEmpty().isEmail(),
+    body("new_password").notEmpty(),
+    body("confirm_password").notEmpty(),
+  ],
+  validation,
+  forgotPassword
 );
 
 module.exports = router;
