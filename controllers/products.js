@@ -24,26 +24,25 @@ exports.createProduct = (req, res, next) => {
   const productImage = req.files.productImage[0];
 
   Products.create({
-          category_id: categoryId,
-          product_name: productName,
-          price: price,
-          description: description,
-          ratings_id: ratingsId || null,
-          product_image: productImage.filename || null,
-          stocks: stocks,
-          purchase_count: purchaseCount,
-        })
+    category_id: categoryId,
+    product_name: productName,
+    price: price,
+    description: description,
+    ratings_id: ratingsId || null,
+    product_image: productImage.filename || null,
+    stocks: stocks,
+    purchase_count: purchaseCount,
+  })
     .then(() => {
       return res.status(200).json({
         success: true,
         message: "Product created successfully",
       });
     })
-
     .catch((err) => {
-        if (productImage) {
-          deleteFile(productImage.filename, "product-upload");
-        }
+      if (productImage) {
+        deleteFile(productImage.filename, "product-upload");
+      }
       console.log(err);
     });
 };
@@ -59,7 +58,7 @@ exports.createProduct = (req, res, next) => {
 //     stocks,
 //     purchaseCount,
 //     status,
-//   } = req.body.data || {}; 
+//   } = req.body.data || {};
 //   Products.findOne({ where: { id: productId } })
 //     .then((product) => {
 //       if (!product) {
@@ -68,7 +67,7 @@ exports.createProduct = (req, res, next) => {
 
 //       if (req.files && req.files.productImage) {
 //         const productImage = req.files.productImage[0];
-//         deleteFile(product.product_image, "product-upload"); 
+//         deleteFile(product.product_image, "product-upload");
 //         product.product_image = productImage.filename || null;
 //       }
 

@@ -5,7 +5,6 @@ module.exports = (req, res, next) => {
     if (data) {
         try {
             req.body.data = JSON.parse(data);
-            next();
         } catch (err) {
             return errorHandler("Invalid JSON data", 500, res);
         }

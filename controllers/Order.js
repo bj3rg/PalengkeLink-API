@@ -1,5 +1,6 @@
 const Orders = require("../models/Orders");
 const Cart = require("../models/Cart");
+const Products = require("../models/Products");
 
 exports.createOrder = (req, res, next) => {
   const { item_id, quantity, cart_id, price } = req.body;
@@ -109,6 +110,9 @@ exports.findOrderById = (req, res, next) => {
     where: {
       id: orderId,
     },
+    include: {
+      model: Products
+    }
   })
     .then((data) => {
       if (!data) {
