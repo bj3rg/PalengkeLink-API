@@ -14,7 +14,7 @@
 // };
 
 const { validationResult } = require("express-validator");
-const deleteFile = require("../helpers/image");
+const deleteFile = require("../helpers/deleteFile");
 
 module.exports = (req, res, next) => {
   const errors = validationResult(req);

@@ -2,32 +2,18 @@ const errorHandler = require("../util/errorHandler");
 const Category = require("../models/Category");
 
 exports.createCategory = (req, res, next) => {
-  const { category_name } = req.body;
+  const { category_name, description } = req.body;
 
-  Category.findOne({
-    where: {
-      category_name: category_name,
-    },
+  Category.create({
+    category_name,
+    description
   })
-    .then((data) => {
-      if (data) {
-        return errorHandler("category wala", 400);
-        return res.status(400).json({
-          success: false,
-          message: "Category name already taken",
-        });
-      } else {
-        return Category.create({
-          category_name,
-        });
-      }
-    })
-    .then(() => {
-      res.status(200).json({
-        success: true,
-        message: "Category created",
-      });
-    })
+  .then(() => {
+    return res.status(200).json({
+      success: true,
+      message: "Category created",
+    });
+  })
     .catch((err) => {
       next(err);
     });
@@ -35,67 +21,84 @@ exports.createCategory = (req, res, next) => {
 
 exports.updateCategory = (req, res, next) => {
   const { categoryId } = req.params;
-  const { category_name } = req.body;
+  const { category_name, description } = req.body;
 
-  Category.findOne({
-    where: {
-      id: categoryId,
+    Category.update({
+      category_name,
+      description
     },
-  })
-    .then((existingCategory) => {
-      if (!existingCategory) {
-        return res.status(400).json({
-          success: false,
-          message: "Category ID does not exist",
-        });
-      }
-      return Category.findOne({
-        where: {
-          category_name: category_name,
-        },
-      });
+    {
+      where: {id: categoryId}
     })
-    .then((categoryWithName) => {
-      if (categoryWithName) {
-        return res.status(400).json({
-          success: false,
-          message: "Category name already taken",
-        });
-      }
-      return Category.update(
-        { category_name: category_name },
-        { where: { id: categoryId } }
-      );
-    })
-    .then(() => {
-      res.status(200).json({
+    .then((category) => {
+      return res.status(200).json({
         success: true,
-        message: "Category updated",
-      });
-    })
-    .catch((err) => {
-      errorHandler(err, 500);
+        message: "Category updated successfully",
     });
+    })
+    .catch (err => {
+      next(err);
+    })
 };
 
 exports.deleteCategory = (req, res, next) => {
   const { categoryId } = req.params;
+
+  Category.update({
+  status: false
+  },
+    { where: { id: categoryId} 
+  })
+  .then( () => {
+    return res.status(200).json({
+      success: true,
+      message: "Category deleted successfully",
+  });
+  })
+  .catch (err => {
+    next(err);
+  })
 };
 
-exports.getAllCategory = (req, res, next) => {
-  Category.findAll({
-    where: {
-      status: "true",
-    },
+exports.forceDeleteCategory = (req, res, next) => {
+  const { categoryId } = req.params;
+
+  Category.destroy(
+    { where: { id: categoryId} 
   })
-    .then((data) => {
-      const categories = data.map((category) => ({
-        id: category.id,
-        category_name: category.category_name,
-      }));
-      res.status(200).json({ success: true, categories });
-    })
-    .catch((err) => {
-      errorHandler(err, 500);
-    });
+  .then( () => {
+    return res.status(200).json({
+      success: true,
+      message: "Category deleted permanently",
+  });
+  })
+  .catch (err => {
+    next(err);
+  })
+};
+
+exports.findAllCategory = (req, res, next) => {
+  Category.findAll()
+  .then( (categories) => {
+    return res.status(200).json({
+      success: true,
+      categories: categories
+  });
+  })
+  .catch (err => {
+    next(err);
+  })
+};
+
+exports.findActiveCategory = (req, res, next) => {
+  Category.findAll({ where:{ status: true}})
+  .then( (categories) => {
+    return res.status(200).json({
+      success: true,
+      categories: categories
+  });
+  })
+  .catch (err => {
+    next(err);
+  })
 };
