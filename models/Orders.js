@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
 const Cart = require("./Cart");
+const Products = require("./Products");
 
 const Orders = sequelizeConnect.define(
   "Orders",
@@ -45,6 +46,10 @@ Orders.belongsTo(Cart, {
   as: "cart",
 });
 
-//Orders.hasOne()
+Orders.hasOne(Products, {
+  foreignKey: "item_id",
+  targetKey: "id",
+  as: "product",
+});
 
 module.exports = Orders;
