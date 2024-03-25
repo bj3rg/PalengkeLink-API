@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const validation = require("../../middlewares/routeValidation");
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 const jsonParser = require("../../helpers/jsonParser");
 const Category = require("../../models/Category");
 const Products = require("../../models/Products");
@@ -9,9 +9,12 @@ const deleteFile = require("../../helpers/deleteFile");
 
 const {
   createProduct,
-  // updateProduct,
-  // findProductsByCategory,
-  // findActiveProductsByCategory
+  updateProduct,
+  findProductsByCategory,
+  findActiveProductsByCategory,
+  deleteProduct,
+  forceDeleteProduct,
+  updateProductStatus
 } = require("../../controllers/products");
 const errorHandler = require("../../util/errorHandler");
 const { updateCategory } = require("../../controllers/category");
@@ -58,6 +61,18 @@ router.post(
   "/:productId/update",
   jsonParser,
   [
+    param("productId").isUUID()
+    .custom((value, { req }) => {
+      return Products.findOne({
+        where: {
+          id: value,
+        },
+      }).then((product) => {
+        if (!product) {
+          return Promise.reject("Product ID does not exists!");
+        }
+      });
+    }),
     body("data.categoryId").optional()
     .custom((value, { req }) => {
       return Category.findOne({
@@ -89,7 +104,69 @@ router.post(
     body("data.purchaseCount").optional(),
   ],
   validation,
-  // updateProduct
+  updateProduct
+);
+
+
+router.get(
+  "/:categoryId/find-products-by-category",
+  [
+    param("categoryId")
+    .custom((value, { req }) => {
+      return Category.findOne({
+        where: {
+          id: value,
+        },
+      }).then((category) => {
+        if (!category) {
+          return Promise.reject("Category ID does not exists!");
+        }
+      });
+    }),
+  ],
+  validation,
+  findProductsByCategory
+);
+
+router.get(
+  "/:categoryId/find-active-products-by-category",
+  [
+    param("categoryId")
+    .custom((value, { req }) => {
+      return Category.findOne({
+        where: {
+          id: value,
+        },
+      }).then((category) => {
+        if (!category) {
+          return Promise.reject("Category ID does not exists!");
+        }
+      });
+    }),
+  ],
+  validation,
+  findActiveProductsByCategory
+);
+
+router.put(
+  "/:productId/delete",
+  validation,
+  deleteProduct
+);
+
+router.delete(
+  "/:productId/force-delete",
+  validation,
+  forceDeleteProduct
+);
+
+router.put(
+  "/:productId/update-status",
+  [
+    body("status").notEmpty(),
+  ],
+  validation,
+  updateProductStatus
 );
 
 module.exports = router;
