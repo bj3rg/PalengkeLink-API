@@ -8,6 +8,7 @@ const accountRoute = require("./account/account");
 const orderRoute = require("./order/order");
 const voucherRoute = require("./voucher/voucher");
 const blogRoute = require("./blog/blog");
+const ratingRoute = require("./rating/rating");
 
 router.use("/products", productsRoute);
 router.use("/user", userRoute);
@@ -16,5 +17,6 @@ router.use("/category", categoryRoute);
 router.use("/account", accountRoute);
 router.use("/voucher", voucherRoute);
 router.use("/blog", blogRoute);
+router.use("/rating", ratingRoute);
 
 module.exports = router;
