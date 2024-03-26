@@ -24,6 +24,10 @@ const Orders = sequelizeConnect.define(
       type: Sequelize.UUID,
       allowNull: false,
     },
+    transaction_id: {
+      type: Sequelize.UUID,
+      allowNull: true,
+    },
     price: {
       type: Sequelize.DOUBLE,
       allowNull: false,

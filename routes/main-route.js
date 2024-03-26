@@ -24,3 +24,4 @@ router.use("/rating", ratingRoute);
 router.use("/cart", cartRoute);
 
 module.exports = router;
+

@@ -52,7 +52,7 @@ const Users = sequelizeConnect.define(
       defaultValue: "",
     },
     birth_date: {
-      type: Sequelize.DATE,
+      type: Sequelize.STRING, //DATE
       allowNull: false,
     },
     fcm_token: {
