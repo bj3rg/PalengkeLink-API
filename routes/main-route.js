@@ -9,6 +9,7 @@ const orderRoute = require("./order/order");
 const voucherRoute = require("./voucher/voucher");
 const blogRoute = require("./blog/blog");
 const transactionRoute = require("./transactions/transactions");
+const ratingRoute = require("./rating/rating");
 
 router.use("/products", productsRoute);
 router.use("/user", userRoute);
@@ -18,5 +19,6 @@ router.use("/account", accountRoute);
 router.use("/voucher", voucherRoute);
 router.use("/blog", blogRoute);
 router.use("/transaction", transactionRoute);
+router.use("/rating", ratingRoute);
 
 module.exports = router;
