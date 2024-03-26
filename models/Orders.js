@@ -28,6 +28,10 @@ const Orders = sequelizeConnect.define(
       type: Sequelize.DOUBLE,
       allowNull: false,
     },
+    reference_no: {
+      type: Sequelize.UUID,
+      allowNull: true,
+    },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: true,

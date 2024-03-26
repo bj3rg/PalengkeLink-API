@@ -31,4 +31,5 @@ const Cart = sequelizeConnect.define(
   }
 );
 
+
 module.exports = Cart;

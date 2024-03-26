@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
+const Orders = require("./Orders");
 
 const Transactions = sequelizeConnect.define(
   "transactions",
@@ -30,10 +31,6 @@ const Transactions = sequelizeConnect.define(
       type: Sequelize.ENUM("ZaganaExpress", "GrabExpress", "StorePickup"),
       allowNull: false,
     },
-    amount_due: {
-      type: Sequelize.DOUBLE,
-      allowNull: false,
-    },
     date: {
       type: Sequelize.DATE,
       allowNull: false,
@@ -54,9 +51,13 @@ const Transactions = sequelizeConnect.define(
       type: Sequelize.ENUM("Preparing to Ship", "Picked up by the Courier", "Out for Delivery"),
       allowNull: false,
     },
+    reference_no: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
     status: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
+      allowNull: false,//false
     },
   },
   {
@@ -64,5 +65,10 @@ const Transactions = sequelizeConnect.define(
     timestamps: true,
   }
 );
+
+Transactions.hasMany(Orders, {
+  foreignKey: "transaction_id",
+  as: "orders",
+});
 
 module.exports = Transactions;
