@@ -24,7 +24,7 @@ router.post(
   createRating
 );
 
-router.update(
+router.put(
   "/:ratingID/update-rating",
   [
     param("ratingID").isUUID().notEmpty(),
@@ -65,4 +65,4 @@ router.get(
   findAllRatingbyUserID
 );
 
-module.exports = Router;
+module.exports = router;

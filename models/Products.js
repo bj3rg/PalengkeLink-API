@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelizeConnect = require("../connection/database");
-const Category = require("../models/Category");
+const ProductCategory = require("./Product-Category");
 const Ratings = require("./Ratings");
 
 const Products = sequelizeConnect.define(
@@ -56,7 +56,7 @@ const Products = sequelizeConnect.define(
   }
 );
 
-Products.belongsTo(Category, {
+Products.belongsTo(ProductCategory, {
   foreignKey: "category_id",
   targetKey: "id",
   as: "category",

@@ -3,7 +3,7 @@ const router = express.Router();
 const validation = require("../../middlewares/routeValidation");
 const { body, param } = require("express-validator");
 const jsonParser = require("../../helpers/jsonParser");
-const Category = require("../../models/Category");
+const Category = require("../../models/Product-Category");
 const Products = require("../../models/Products");
 const deleteFile = require("../../helpers/deleteFile");
 

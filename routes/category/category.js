@@ -2,7 +2,7 @@ const express = require("express");
 const { body, param } = require("express-validator");
 const Validation = require("../../middlewares/routeValidation");
 const router = express.Router();
-const Category = require("../../models/Category")
+const Category = require("../../models/Product-Category")
 
 const {
   createCategory,

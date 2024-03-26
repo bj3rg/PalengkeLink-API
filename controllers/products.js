@@ -1,4 +1,4 @@
-const Category = require("../models/Category");
+const Category = require("../models/Product-Category");
 const Products = require("../models/Products");
 const deleteFile = require("../helpers/deleteFile");
 const errorHandler = require("../util/errorHandler");
