@@ -21,7 +21,7 @@ app.use("*", (req, res, next) => {
 
 sequelizeConnect
   .sync({
-    // force: true
+    //force: true
   })
   .then(() => {
     app.listen(port, () => {
