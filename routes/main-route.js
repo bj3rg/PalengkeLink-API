@@ -16,3 +16,4 @@ router.use("/account", accountRoute);
 router.use("/voucher", voucherRoute);
 
 module.exports = router;
+

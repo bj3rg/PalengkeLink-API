@@ -22,7 +22,7 @@ exports.createUser = (req, res, next) => {
     //fcm_token,
     password,
   } = req.body.data;
-
+  
   Users.findOne({
     where: {
       email_address: email_address,

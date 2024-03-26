@@ -94,6 +94,10 @@ exports.findAllOrdersByCartId = (req, res, next) => {
         where: {
           cart_id: cartId,
         },
+        include: {
+          model: Products,
+          as: "product",
+        },
       }).then((data) => {
         return res.status(200).json({ success: true, orders: data });
       });
@@ -111,8 +115,9 @@ exports.findOrderById = (req, res, next) => {
       id: orderId,
     },
     include: {
-      model: Products
-    }
+      model: Products,
+      as: "product",
+    },
   })
     .then((data) => {
       if (!data) {
@@ -127,3 +132,30 @@ exports.findOrderById = (req, res, next) => {
       next(err);
     });
 };
+
+//checkout order
+exports.checkOutOrder = (req, res, next) => {
+  const { orderId, transactionId } = req.params;
+  Orders.findOne({
+    where: {
+      id: orderId,
+    },
+  })
+    .then((data) => {
+      if (!data) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Order id not found" });
+      } else {
+        data.transaction_id = transactionId;
+        return data.save().then(() => {
+          return res
+            .status(200)
+            .json({ success: true, message: "Order Checked out" });
+        });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
