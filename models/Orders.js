@@ -44,6 +44,11 @@ const Orders = sequelizeConnect.define(
   }
 );
 
+Cart.hasMany(Orders, {
+  foreignKey: "cart_id",
+  as: "orders",
+});
+
 Orders.belongsTo(Cart, {
   foreignKey: "cart_id",
   targetKey: "id",

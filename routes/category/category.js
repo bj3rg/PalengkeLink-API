@@ -2,7 +2,7 @@ const express = require("express");
 const { body, param } = require("express-validator");
 const Validation = require("../../middlewares/routeValidation");
 const router = express.Router();
-const Category = require("../../models/Category")
+const Category = require("../../models/Product-Category")
 
 const {
   createCategory,
@@ -10,7 +10,8 @@ const {
   deleteCategory,
   forceDeleteCategory,
   findAllCategory,
-  findActiveCategory
+  findActiveCategory,
+  updateCategoryStatus
 } = require("../../controllers/category");
 
 router.post(
@@ -106,6 +107,27 @@ router.get(
   "/find-active-category",
   Validation,
   findActiveCategory
+);
+
+router.put(
+  "/:categoryId/update-status",
+  [
+    param("categoryId").isUUID()
+    .custom((value, { req }) => {
+      return Category.findOne({
+        where: {
+          id: value,
+        },
+      }).then((category) => {
+        if (!category) {
+          return Promise.reject("Category ID does not exists!");
+        }
+      });
+    }),
+    body("status").notEmpty()
+  ],
+  Validation,
+  updateCategoryStatus
 );
 
 module.exports = router;

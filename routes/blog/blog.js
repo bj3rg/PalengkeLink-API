@@ -37,12 +37,12 @@ router.delete(
   deleteBlog
 );
 
-router.get(
-  "/search-all-blog/:userID",
-  [param("userID").isUUID()],
-  validation,
-  findAllBlogbyUserID
-);
+// router.get(
+//   "/search-all-blog/:userID",
+//   [param("userID").isUUID()],
+//   validation,
+//   findAllBlogbyUserID
+// );
 
 router.get(
   "/search-blog/:blogID",

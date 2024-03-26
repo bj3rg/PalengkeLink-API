@@ -9,7 +9,7 @@ const sequelizeConnect = require("./connection/database");
 
 const app = express();
 
-// require("./middlewares/services");
+require("./middlewares/services");
 app.use(multerConfig);
 app.use(bodyParser.json());
 app.use("/asset", express.static("public"));
@@ -21,7 +21,7 @@ app.use("*", (req, res, next) => {
 
 sequelizeConnect
   .sync({
-    // force: true
+    //force: true
   })
   .then(() => {
     app.listen(port, () => {
